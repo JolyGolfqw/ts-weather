@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { HTMLAttributes } from 'react';
 
-function WeatherSearch({ onSearch }) {
-  const cities = [
+interface City {
+  name: string;
+  latitude: number;
+  longitude: number;
+}
+
+interface WeatherSearchProps {
+  onSearch: (latitude: number, longitude: number) => void;
+}
+
+function WeatherSearch({ onSearch }: WeatherSearchProps): JSX.Element {
+  const cities: City[] = [
     { name: 'New York', latitude: 40.7128, longitude: -74.006 },
     { name: 'London', latitude: 51.5074, longitude: -0.1278 },
     { name: 'Tokyo', latitude: 35.6895, longitude: 139.6917 },
@@ -11,8 +21,8 @@ function WeatherSearch({ onSearch }) {
     { name: 'Nazran', latitude: 43.2278, longitude: 44.7622 },
   ];
 
-  const handleSelect = (e) => {
-    const selectedCity = cities.find((city) => city.name === e.target.value);
+  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedCity: City | undefined = cities.find((city: City) => city.name === e.target.value);
     if (selectedCity) {
       onSearch(selectedCity.latitude, selectedCity.longitude);
     }
@@ -25,7 +35,7 @@ function WeatherSearch({ onSearch }) {
         className="rounded-md px-4 py-2 border border-gray-300 text-black"
       >
         <option value="">Выберите город</option>
-        {cities.map((city) => (
+        {cities.map((city: City) => (
           <option key={city.name} value={city.name}>
             {city.name}
           </option>

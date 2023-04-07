@@ -1,6 +1,11 @@
 import React from 'react';
+import { IWeather } from '../App';
 
-function WeatherDisplay({ weatherData }) {
+interface WeatherDisplayProps {
+  weatherData: IWeather
+}
+
+function WeatherDisplay({ weatherData }: WeatherDisplayProps): JSX.Element {
   const { hourly } = weatherData;
   const temperature = hourly.temperature_2m[0];
 
